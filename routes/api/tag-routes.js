@@ -7,8 +7,9 @@ router.get('/', async, (req, res) => {
   // find all tags
   // includes its associated Product data
   try {
-    const tagData = await Tag.findAll();
-    include: [{ model: Product, through: ProductTag, as: 'product_tag' }]
+    const tagData = await Tag.findAll({
+      include: [{ model: Product }],
+  });
     res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
